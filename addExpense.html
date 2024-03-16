@@ -17,27 +17,37 @@
     </style>
     <main class="container">
       <h1>Add Expenses</h1>
-      <form
-        id="financeForm"
-        action=""
-        method="post"
-        
-      >
-        <!--Income Source Name-->
-        <label for="incomeSourceName" class="form-label"
-          >Add Expenses</label
+      <form id="financeForm" action="" method="post">
+        <!--NUMBER 1, Field Implementation and Error Control-->
+        <!--PLACE OF EXPENSE-->
+        <label for="placeOfExpense" class="form-label">Place of Expense</label
         ><br />
         <!--Class ="form-label" is a pre-defined Bootstrap class-->
         <input
           type="text"
           class="form-control form-control-lg"
-          id="incomeSourceName"
+          id="placeOfExpense"
           name="incomeSourceName"
-          placeholder="Must enter at least 3 characters"
+          placeholder="Must enter at least 5 characters"
           aria-label=".form-control-lg example"
         />
         <!--Class ="form-control form-control-lg" is a pre-defined Bootstrap class-->
-        <span class="error" id="incomeSourceNameError"></span><br /><br />
+        <span class="error" id="placeOfExpenseNameError"></span><br /><br />
+
+        <!--DATE OF EXPENSE-->
+        <label for="expenseDate" class="form-label">Date Of Expense</label
+        ><br />
+        <!--Class ="form-label" is a pre-defined Bootstrap class-->
+        <input
+          type="text"
+          class="form-control form-control-lg"
+          id="expenseDate"
+          name="incomeSourceName"
+          placeholder="Must enter at least 5 characters"
+          aria-label=".form-control-lg example"
+        />
+        <!--Class ="form-control form-control-lg" is a pre-defined Bootstrap class-->
+        <span class="error" id="expenseDateError"></span><br /><br />
 
         <!--Amount-->
         <div class="input-group mb-3">
@@ -61,7 +71,12 @@
         <!--Frequency-->
         <label for="frequency" class="form-label">Frequency:</label><br />
         <!--Class ="form-label" is a pre-defined Bootstrap class-->
-        <select class="form-select form-select-lg mb-3" aria-label="Large select example" id="frequency" name="frequency">
+        <select
+          class="form-select form-select-lg mb-3"
+          aria-label="Large select example"
+          id="frequency"
+          name="frequency"
+        >
           <option selected value="Choose">Choose</option>
           <option value="one-time">One-time</option>
           <option value="monthly">Monthly</option>
@@ -90,37 +105,43 @@
 
         //get INPUTS
 
-        //get income (Input)
-        const incomeSourceName =
-          document.getElementById("incomeSourceName").value;
+        //get PlaceOfExpense (Input)
+        const placeOfExpenseName =
+          document.getElementById("placeOfExpense").value;
+
         //get amount (Input)
         const amount = parseFloat(document.getElementById("amount").value);
         //get frequency (Input)
         const frequency = document.getElementById("frequency").value;
 
-        //get SPANS
-        //get income (span)
-        const incomeSourceNameError = document.getElementById(
-          "incomeSourceNameError"
+        //get PlaceOfExpenseError (span)
+        const placeOfExpenseNameError = document.getElementById(
+          "placeOfExpenseNameError"
         );
+
         //get amount (span)
         const amountError = document.getElementById("amountError");
         //get frequency (span)
         const frequencyError = document.getElementById("frequencyError");
 
-        incomeSourceNameError.textContent = ""; //reset error message
+        //Error messages
+        //PlaceOfExpense Error Messages reset
+        placeOfExpenseNameError.textContent = ""; //reset error message
+
         amountError.textContent = ""; //reset error message
         frequencyError.textContent = ""; //reset error message
 
-        if (incomeSourceName.length < 3) {
-          incomeSourceNameError.textContent =
-            "Please enter a valid income source name (at least 3 characters)";
+        //PlaceOfExpense Requirements
+        if (placeOfExpenseName.length < 5) {
+          placeOfExpenseNameError.textContent =
+            "Please enter a valid income source name (at least 5 characters)";
           isValid = false;
         }
 
-        if (amount <= 0 || isNaN(amount)) {
+        //expense amount must be greater than 0 and less than 50000
+        if (amount <= 0 || isNaN(amount) || amount >= 50000) {
           amountError.textContent =
-            "Please enter a valid amount (greater than zero)";
+            "Please enter a valid amount (greater than 0 and less than 50000)";
           isValid = false;
         }
 
